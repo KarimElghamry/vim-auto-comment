@@ -83,7 +83,7 @@ function! s:AutoBlockComment() range
     let extension = expand('%:e')
     let comment = g:default_block_comment 
 
-"   check file extension against each entry in inline comment dictionary    
+"   check file extension against each entry in block comment dictionary    
     for item in items(g:block_comment_dict) 
 	if index(item[1], extension) >= 0
 	    let comment = item[0]
