@@ -1,6 +1,6 @@
 "============================================================================
 "
-"File:        vim-autocomment.vim
+"File:        vim-auto-comment.vim
 "Author:      Karim Elghamry <karimelghamry@gmail.com> 
 "Version:     1.0.0 
 "Description: Vim plugin for auto commenting/uncommenting multiple lines
