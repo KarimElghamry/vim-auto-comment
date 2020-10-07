@@ -1,6 +1,22 @@
+"============================================================================
+"
+"File:        vim-autocomment.vim
+"Author:      Karim Elghamry <karimelghamry@gmail.com> 
+"Version:     1.0.0 
+"Description: Vim plugin for auto commenting/uncommenting multiple lines
+" 	      depending on the given file 
+"License:     This program is free software. It comes without any warranty,
+"             to the extent permitted by applicable law. You can redistribute
+"             it and/or modify it under the terms of the Do What The Fuck You
+"             Want To Public License, Version 2, as published by Sam Hocevar.
+"             See http://sam.zoy.org/wtfpl/COPYING for more details.
+"
+"============================================================================
+"
 " ---------------------------------- "
 " dictionary for mapping inline comment tokens to the corresponding files
-let g:inline_comment_dict = {'//': ["js", "jsx", "ts", "tsx", "cpp", "c", "dart"],
+let g:inline_comment_dict = {
+		\'//': ["js", "ts", "cpp", "c", "dart"],
 		\'#': ['py', 'sh'],
 		\'"': ['vim'],
 		\}
@@ -11,7 +27,8 @@ let g:default_inline_comment = '#'
 
 
 " dictionary for mapping block comment tokens to the corresponding files
-let g:block_comment_dict = {'/*': ["js", "jsx", "ts", "tsx", "cpp", "c", "dart"],
+let g:block_comment_dict = {
+		\'/*': ["js", "ts", "cpp", "c", "dart"],
 		\'"""': ['py'],
 		\}
 
