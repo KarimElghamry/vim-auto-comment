@@ -1,17 +1,26 @@
+" ---------------------------------- "
+" dictionary for mapping inline comment tokens to the corresponding files
 let g:inline_comment_dict = {'//': ["js", "jsx", "ts", "tsx", "cpp", "c", "dart"],
 		\'#': ['py', 'sh'],
 		\'"': ['vim'],
 		\}
 
+" variable for setting the default inlink comment token if the current file is
+" not found in the dictionary
 let g:default_inline_comment = '#'
 
 
+" dictionary for mapping block comment tokens to the corresponding files
 let g:block_comment_dict = {'/*': ["js", "jsx", "ts", "tsx", "cpp", "c", "dart"],
 		\'"""': ['py'],
 		\}
 
+
+" variable for setting the default inlink comment token if the current file is
+" not found in the dictionary
 let g:default_block_comment = '/*'
 
+" ---------------------------------- "
 " function to reverse a given string
 function! s:ReverseString(input_string)
     let output = ''
@@ -21,6 +30,7 @@ function! s:ReverseString(input_string)
     return output
 endfunction
 
+" ---------------------------------- "
 "   function for inline auto commenting
 function! s:AutoInlineComment()
 "   get extension    
@@ -49,6 +59,8 @@ function! s:AutoInlineComment()
 endfunction
 
 
+" ---------------------------------- "
+"   function for block auto commenting
 function! s:AutoBlockComment() range
 "   get extension    
     let extension = expand('%:e')
@@ -61,12 +73,15 @@ function! s:AutoBlockComment() range
 	    break
 	endif
     endfor
-
+"   reverse the comment token
     let reverse_comment = s:ReverseString(comment)
-    let firstline_character = substitute(getline(a:firstline), '^[ ]*', '', 'g')[:len(comment) - 1] 
-    let lastline_character = substitute(getline(a:lastline), '[ ]*$', '', 'g')[-len(comment):]
 
-    if (firstline_character == comment && lastline_character == reverse_comment)
+"   get first and last tokens
+    let firstline_token = substitute(getline(a:firstline), '^[ ]*', '', 'g')[:len(comment) - 1] 
+    let lastline_token = substitute(getline(a:lastline), '[ ]*$', '', 'g')[-len(comment):]
+
+"   check if the block is commented and parse accordingly
+    if (firstline_token == comment && lastline_token == reverse_comment)
 	execute ':'. a:firstline . ',' . a:firstline . 's/^\( *\)' . escape(comment, '^$.*?/\[]') . '\( \?\)//'
 	execute ':'. a:lastline . ',' . a:lastline . 's/\s\?' . escape(reverse_comment, '^$.*?/\[]') . '$//'
     else
@@ -75,9 +90,14 @@ function! s:AutoBlockComment() range
     endif
 endfunction
 
+
+" ---------------------------------- "
+"  define commands
 command! -range AutoInlineComment <line1>,<line2>call <sid>AutoInlineComment()
 command! -range AutoBlockComment <line1>,<line2>call <sid>AutoBlockComment() 
 
+" ---------------------------------- "
+"  define default mappings
 if !exists('g:autocomment_map_keys')
     let g:autocomment_map_keys = 1
 endif
