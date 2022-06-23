@@ -15,27 +15,28 @@
 "
 " ---------------------------------- "
 " dictionary for mapping inline comment tokens to the corresponding files
-let g:inline_comment_dict = {
-		\'//': ["js", "ts", "cpp", "c", "dart"],
+let g:inline_comment_dict = get(g:, 'inline_comment_dict', 
+	        \{
+		\'//': ["js", "ts", "cpp", "c", "dart", "go"],
 		\'#': ['py', 'sh'],
 		\'"': ['vim'],
-		\}
+		\})
 
 " variable for setting the default inlink comment token if the current file is
 " not found in the dictionary
-let g:default_inline_comment = '#'
+let g:default_inline_comment = get(g:, 'default_inline_comment', '#')
 
 
 " dictionary for mapping block comment tokens to the corresponding files
-let g:block_comment_dict = {
+let g:block_comment_dict = get(g:, 'block_comment_dict', {
 		\'/*': ["js", "ts", "cpp", "c", "dart"],
 		\'"""': ['py'],
-		\}
+		\})
 
 
 " variable for setting the default inlink comment token if the current file is
 " not found in the dictionary
-let g:default_block_comment = '/*'
+let g:default_block_comment = get(g:, 'default_block_comment', '/*')
 
 " ---------------------------------- "
 " function to reverse a given string
